@@ -30,8 +30,7 @@ Future<void> main() async {
 
   if (!kIsWeb && Platform.isWindows) {
     await GoogleSignInDart.register(
-      clientId:
-          '968115587616-e4o89qm9rm3jpotbkderigdt4hprjnql.apps.googleusercontent.com',
+      clientId: '968115587616-e4o89qm9rm3jpotbkderigdt4hprjnql.apps.googleusercontent.com',
     );
   }
   runApp(const MyApp());
@@ -46,7 +45,32 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: Color(0xffFFE213),
+        appBarTheme: AppBarTheme(
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: WidgetStatePropertyAll(Colors.white),
+            backgroundColor: WidgetStatePropertyAll(Colors.black),
+            padding: WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 24, horizontal: 16)),
+            minimumSize: WidgetStatePropertyAll(Size.fromHeight(48)),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5), // Set the radius here
+              ),
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          contentPadding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffFACA01)),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -71,18 +95,21 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SignUpScreen()),
-            );
-          },
-          child: const Text('Sign Up'),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignUpScreen()),
+              );
+            },
+            child: const Text('Sign Up'),
+          ),
         ),
       ),
     );

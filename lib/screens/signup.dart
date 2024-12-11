@@ -38,6 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   return null;
                 },
               ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
@@ -51,13 +52,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   return null;
                 },
               ),
+              SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     // Handle signup logic here
                     // For example, call your signup function
-                    signUpWithEmailAndPassword(
-                        _emailController.text, _passwordController.text);
+                    signUpWithEmailAndPassword(_emailController.text, _passwordController.text);
                   }
                 },
                 child: const Text('Sign Up'),
