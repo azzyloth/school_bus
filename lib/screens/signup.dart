@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:school_bus/services/auth_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:school_bus/providers/authentication_providers.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  ConsumerState<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final auth = ref.watch(authenticationProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign Up'),
@@ -58,7 +60,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   if (_formKey.currentState!.validate()) {
                     // Handle signup logic here
                     // For example, call your signup function
-                    signUpWithEmailAndPassword(_emailController.text, _passwordController.text);
+                    auth.signUpWithEmailAndPassword(
+                        _emailController.text, _passwordController.text);
                   }
                 },
                 child: const Text('Sign Up'),

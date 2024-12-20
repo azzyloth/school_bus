@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in_dartio/google_sign_in_dartio.dart';
 import 'package:school_bus/firebase_options.dart';
+import 'package:school_bus/screens/auth_gate.dart';
 import 'package:school_bus/screens/signup.dart';
 
 bool shouldUseFirebaseEmulator = false;
@@ -30,10 +32,11 @@ Future<void> main() async {
 
   if (!kIsWeb && Platform.isWindows) {
     await GoogleSignInDart.register(
-      clientId: '968115587616-e4o89qm9rm3jpotbkderigdt4hprjnql.apps.googleusercontent.com',
+      clientId:
+          '968115587616-e4o89qm9rm3jpotbkderigdt4hprjnql.apps.googleusercontent.com',
     );
   }
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -55,7 +58,8 @@ class MyApp extends StatelessWidget {
           style: ButtonStyle(
             foregroundColor: WidgetStatePropertyAll(Colors.white),
             backgroundColor: WidgetStatePropertyAll(Colors.black),
-            padding: WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 24, horizontal: 16)),
+            padding: WidgetStatePropertyAll(
+                EdgeInsets.symmetric(vertical: 24, horizontal: 16)),
             minimumSize: WidgetStatePropertyAll(Size.fromHeight(48)),
             shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(
@@ -73,45 +77,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffFACA01)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: AuthGate(),
       routes: {
         '/signup': (context) => SignUpScreen(),
       },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignUpScreen()),
-              );
-            },
-            child: const Text('Sign Up'),
-          ),
-        ),
-      ),
     );
   }
 }
